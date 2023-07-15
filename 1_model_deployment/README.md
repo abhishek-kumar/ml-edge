@@ -37,7 +37,7 @@ For the predict POST endpoint, you can try an example request. In this case, our
 
 Now we'll look into containerizing the prediction service we just created.
 
-First, we need to build the docker image. 
+First, we need to build the docker image.
 
 We can use the Makefile in the repo to do that:
 
