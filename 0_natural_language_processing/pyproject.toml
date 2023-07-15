@@ -1,0 +1,67 @@
+[tool.poetry]
+name = "llm_masterclass"
+# the first alpha pre-release of version 0.1.0
+version = "0.1.0-alpha.1 "
+description = "Repository for LLMs portion of AI masterclass"
+authors = ["Joseph Corrado <josephcorrado7@gmail.com>"]
+readme = "README.md"
+packages = [
+    {include = "llm_masterclass"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+gensim = "^4.3.1"
+scikit-learn = "^1.2.2"
+numpy = "^1.25.0"
+matplotlib = "^3.7.1"
+pandas = "^2.0.2"
+polars = "^0.18.3"
+nltk = "^3.8.1"
+pydantic = "^1.10.9"
+cython = "^0.29.35"
+tensorflow-metal = "^1.0.1"
+tensorflow-macos = "^2.12.0"
+statsmodels = "^0.14.0"
+transformers = "^4.30.2"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+black = "*"
+flake8 = "*"
+pre-commit = "*"
+pytest = "*"
+pytest-cov = "*"
+interrogate = "*"
+isort = "*"
+commitizen = "*"
+ipykernel = "*"
+jupyter = "*"
+pandas-stubs = "*"
+flake8-bugbear = "*"
+sourcery = "*"
+
+[tool.isort]
+profile = "black"
+import_heading_stdlib = "Python Standard Library Imports"
+import_heading_thirdparty = "Third Party Imports"
+import_heading_firstparty = "llm_masterclass Imports"
+# src_paths = ["<path-to-src-code>"]
+known_first_party = ["llm_masterclass"]
+# known_third_party = ["<any 3rd party packages with potential name collisions>"]
+
+ [tool.pytest.ini_options]
+ filterwarnings = [
+     # transform all other warnings into errors
+     "error",
+     # ignore UserWarnings
+     "ignore::UserWarning",
+     # note the use of single quote below to denote "raw" strings in TOML
+     'ignore:function ham\(\) is deprecated:DeprecationWarning',
+     "ignore::DeprecationWarning",
+ ]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
