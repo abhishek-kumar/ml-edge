@@ -28,3 +28,12 @@ poetry env use $(<path-to-python>)
 
 Remember to remove the `<` and `>` when you paste in the path to your Python executable.
 
+After running the `poetry env use` command, you should see something that looks like:
+
+![Create poetry environment](img/image.png)
+
+Then, to install all the dependencies from the `pyproject.toml`, you run:
+
+```bash
+poetry install
+```
