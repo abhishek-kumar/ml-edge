@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "module-1-introduction-to-tensorflow"
+version = "0.1.0"
+description = ""
+authors = ["Joseph Corrado <josephcorrado7@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.11"
+scikit-learn = "^1.2.2"
+numpy = "1.23.2"
+pandas = "^2.0.1"
+tensorflow-macos = "^2.12.0"
+tensorflow-metal = "^0.8.0"
+matplotlib = "^3.7.1"
+seaborn = "^0.12.2"
+plotly = "^5.14.1"
+pyarrow = "^12.0.0"
+polars = "^0.17.14"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "*"
+black = "*"
+flake8 = "*"
+pre-commit = "*"
+pytest = "*"
+pytest-cov = "*"
+interrogate = "*"
+isort = "*"
+commitizen = "*"
+ipykernel = "^6.17.1"
+jupyter = "*"
+pandas-stubs = "*"
+flake8-bugbear = "*"
+sourcery = "*"
+
+[tool.isort]
+profile = "black"
+import_heading_stdlib = "Python Standard Library Imports"
+import_heading_thirdparty = "Third Party Imports"
+import_heading_firstparty = "AiEdge Introduction to TensorFlow Imports"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
