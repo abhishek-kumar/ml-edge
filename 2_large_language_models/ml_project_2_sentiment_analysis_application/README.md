@@ -12,6 +12,10 @@ The frontend for the app looks like this:
 
 ![Alt text](frontend.png)
 
+The pattern explored in this repo is useful for asynchronous use cases where you don't need immediate results to be displayed to the user. This is because we are using Bigquery, which was not designed as a low latency solution. It is more appropriate when you have an application where you're batching a large number of requests and returning those to the users, like labeling a data sets of batch reviews that are coming in.
+
+To improve this design, you could instead make your backend FastAPI code asynchronously call the VertexAI endpoint and return the response to the user immediately.
+
 ## GCP Instructions
 
 The instructions for building the connection between Bigquery and VertexAI hosted models can be found [at this link](https://cloud.google.com/bigquery/docs/generate-text-tutorial).
