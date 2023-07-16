@@ -87,6 +87,46 @@ Then, when you want to stop the container, you can run:
 docker stop prediction_service
 ```
 
-However, you should notice that your container won't be removed, but it'll now have the `EXITED` status. 
+However, you should notice that your container won't be removed, but it'll now have the `EXITED` status.
 
+## Pushing Docker Image to Artifact Registry
 
+First, go into your Google Console, and then go to Artifact Registry.
+
+Create a new repository for the prediction service. Note down:
+
+* the name you used
+* the region you created it in
+* the project ID you're working in
+
+You need to edit the values in the `Makefile`:
+
+* `IMAGE`
+* `REGION`
+* `PROJECT-ID`
+
+Then, you need to build the image. We can use the Makefile to do so.
+
+```bash
+make image
+```
+
+This command will produce a docker image by the name of `prediction_service`.
+
+To verify that you've built the image, you can run:
+
+```bash
+docker images
+```
+
+You should find an image with a tag having a value equal to the value for `TAG` in the `Makefile`:
+
+![Docker Image Tag](img/image.png)
+
+For your own GCP projects, regions, and repository name, you should edit the values for these variables.
+
+Then, you push the image to the artifact repository you created, referencing the image we built by its tag:
+
+```bash
+make push
+```

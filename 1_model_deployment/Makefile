@@ -4,8 +4,6 @@ PROJECT-ID=aiedge-masterclass
 REPOSITORY=prediction-service
 IMAGE=prediction_service
 
-us-east4-docker.pkg.dev/aiedge-masterclass/prediction-service/prediction_service
-
 TAG=${REGION}-docker.pkg.dev/${PROJECT-ID}/${REPOSITORY}/${IMAGE}
 
 prediction_service:
@@ -13,6 +11,9 @@ prediction_service:
 
 image:
 	docker build -t prediction_service -t ${TAG} .
+
+push:
+	docker push ${TAG}
 
 # if you're building an amd64 image on an arm64 computer
 multi-arch:
@@ -26,4 +27,4 @@ prediction_service_container:
 
 
 
-.PHONY: prediction_service image multi-arch
+.PHONY: prediction_service image multi-arch push
