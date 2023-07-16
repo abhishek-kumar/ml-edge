@@ -1,1 +1,1 @@
-# Weeks 4 & 5 - Natural Language Processing
+# Weeks 4 & 5 - Large Language Models
