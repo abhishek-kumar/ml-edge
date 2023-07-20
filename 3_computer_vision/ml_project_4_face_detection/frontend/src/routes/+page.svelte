@@ -1,9 +1,16 @@
 <!-- TypeScript -->
 <script lang="ts">
+
     let file: File | null = null;
-    let preview: string | ArrayBuffer | null  = '';
+    let preview: string | ArrayBuffer | null  = null;
+    let transformedImage: string | ArrayBuffer | null = null;
+    let isLoading: boolean = false;
+
+    function delay(ms: number) {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+    }
   
-    function onFileChange(event: Event) {
+    async function onFileChange(event: Event) {
       const files = (event.target as HTMLInputElement).files;
       if (files && files.length > 0) {
         file = files[0];
@@ -12,6 +19,28 @@
           preview = (e.target! as FileReader).result;
         };
         reader.readAsDataURL(file);
+
+        let formData = new FormData();
+
+        formData.append("file", file);
+
+        isLoading = true;
+
+        await delay(2000);
+
+        const response = await fetch("http://localhost:8000/detect_faces", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            console.error("There was an error", response);
+        } else {
+            const result = await response.json();
+            transformedImage = `data:${file.type};base64,${result.image}`;
+        }
+
+        isLoading = false;
       }
     }
   </script>
@@ -51,6 +80,50 @@
         background-color: #26ef30;
         cursor: pointer;
     }
+
+    /* Make the isLoading dots look nice */
+    .loading-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .loading-dots {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 60px;
+    }
+
+    .loading-dots div {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: #333;
+        animation: loading 0.8s infinite;
+    }
+
+    .loading-dots div:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .loading-dots div:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes loading {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+        }
+    }
+
 </style>
 
 <!-- HTML Code -->
@@ -60,12 +133,22 @@
 
     <input class="file-input" type="file" accept="image/*" on:change={onFileChange} />
 
-    {#if preview}
     <div class="double-image-preview">
-        <img src={preview} alt="Image preview" class="single-image-preview" />
-        <img src={preview} alt="Transformed Image" class="single-image-preview" />
+            {#if preview}
+                <img src={preview} alt="Elf 1" class="single-image-preview" />
+            {/if}
+            {#if isLoading}
+                <div class="loading-container">
+                    <div class="loading-dots">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            {:else if transformedImage}
+                <img src={transformedImage} alt="Elf 2" class="single-image-preview" />
+            {/if}
     </div>
-    {/if}
 </div>
 
 <!-- END HTML -->
