@@ -18,6 +18,9 @@ First, install the dependencies:
 
 ```bash
 npm install
+
+# or
+make install
 ```
 
 Then run the frontend server:
@@ -27,6 +30,9 @@ npm run dev
 
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
+
+# or 
+make run
 ```
 
 ## Building
