@@ -1,4 +1,7 @@
 app:
 	uvicorn app:app --reload
 
-.PHONY: app
+tests:
+	pytest --capture=no test_cloud_vision.py
+
+.PHONY: app tests
