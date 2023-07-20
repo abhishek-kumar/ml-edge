@@ -10,6 +10,7 @@ fastapi = "^0.100.0"
 uvicorn = "^0.23.1"
 google-cloud-vision = "^3.4.4"
 python-multipart = "^0.0.6"
+loguru = "^0.7.0"
 
 
 [build-system]
