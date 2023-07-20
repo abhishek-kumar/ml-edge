@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Joseph Corrado <joseph.theaiedge@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.1"
+google-cloud-vision = "^3.4.4"
+python-multipart = "^0.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
