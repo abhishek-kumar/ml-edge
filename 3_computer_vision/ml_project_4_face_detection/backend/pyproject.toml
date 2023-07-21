@@ -16,6 +16,8 @@ pydantic = "<2.0"
 keras-vggface = "^0.6"
 tensorflow-metal = "^1.0.1"
 tensorflow-macos = "^2.13.0"
+opencv-python = "^4.8.0.74"
+imutils = "^0.5.4"
 
 
 [tool.poetry.group.dev.dependencies]
