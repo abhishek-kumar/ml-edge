@@ -4,13 +4,6 @@ import pathlib
 from botocore.session import Session
 from loguru import logger
 
-# def test_local_recognition_works():
-#     assert len(zero_shot(id_to_images[0][5])) > 0
-
-# def test_id_to_images():
-#     id_to_images = generate_image_to_id_mapping("Celebrity Faces Dataset")
-#     print(id_to_images)
-
 def test_detect_celebrity():
     PATH_TO_TEST_IMAGE = pathlib.Path("Celebrity Faces Dataset/Brad Pitt/001_c04300ef.jpg")
     # PATH_TO_TEST_IMAGE = pathlib.Path(".test_assets/test_image.jpg")
