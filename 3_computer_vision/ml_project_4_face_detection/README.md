@@ -112,3 +112,35 @@ unzip celebrity-18.zip
 ```
 
 This will create a folder called `Celebrity Faces Dataset` on your machine.
+
+
+We'll be using AWS Rekognition for celebrity facial recognition, as they provide this out of the box, and the SDK is very easy to use.
+
+First, you need to create a service user on AWS:
+
+* go to IAM
+* create a User
+* add policies directly
+* give it the `AmazonRekognitionFullAccess` policy
+* create the service user
+
+Once you've created the service user in IAM, you need to generate a Access Key ID and Secret Key pair:
+
+* select the user you just created, and click on the security credentials tab
+* click create access key
+* select one of the access key best practices & alternatives, then check the checkbox at the bottom saying "I understand the above recommendation and want to proceed to create an access key"
+* click create access key
+* download the CSV for the access key
+
+This CSV file contains your access key id, and your secret key.
+
+Go into your `~/.aws/credentials` file, and create a new entry like this:
+
+```ini
+[rekognition]
+aws_access_key_id=<your access key id>
+aws_secret_access_key=<your secret key>
+```
+
+Then, your backend should be able to access the rekognition celebrity detection API.
+It looks for a profile called `rekognition` in your `~/.aws/credentials` file.
