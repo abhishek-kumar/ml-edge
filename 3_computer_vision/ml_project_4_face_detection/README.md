@@ -1,4 +1,14 @@
-# Face Detection Frontend
+# Face Detection Project
+
+In this project, we'll build a full stack face detection application.
+
+The technical components will consist of:
+
+* Svelte.js frontend
+* Python/FastAPI backend
+* GCP VertexAI Face detection
+
+## Frontend
 
 This `frontend` folder was generated with the command:
 
