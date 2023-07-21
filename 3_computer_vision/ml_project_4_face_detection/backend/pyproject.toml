@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["Joseph Corrado <joseph.theaiedge@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.1"
+google-cloud-vision = "^3.4.4"
+python-multipart = "^0.0.6"
+loguru = "^0.7.0"
+pillow = "^10.0.0"
+pydantic = "^2.0.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_level = "INFO"
+capture = "no"
+filterwarnings = [
+    # transform all other warnings into errors
+    "error",
+    # ignore UserWarnings
+    "ignore::UserWarning",
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
+    "ignore::DeprecationWarning",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
