@@ -1,9 +1,9 @@
 from google.cloud import vision
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 import io
 from typing import List, Dict
 
-def draw_boxes(content: io.BytesIO, detected_faces) -> io.BytesIO:
+def draw_boxes(content: io.BytesIO, detected_faces, detected_celebrity: str) -> io.BytesIO:
     """
     The `Image.open` function from the Pillow library expects a file path or a
     file-like object as the argument; not the content of the file itself.
@@ -16,10 +16,17 @@ def draw_boxes(content: io.BytesIO, detected_faces) -> io.BytesIO:
     """
     image = Image.open(content)
     draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype(
+        "/System/Library/Fonts/Supplemental/Arial.ttf", 
+        32
+    )
 
     for detected_face in detected_faces:
         vertices = [(vertex.x, vertex.y) for vertex in detected_face.bounding_poly.vertices]
         draw.line(vertices + [vertices[0]], width=5, fill='red')
+
+        text_position = vertices[0]
+        draw.text(text_position, detected_celebrity, font=font, fill='blue')
 
     return image
 
