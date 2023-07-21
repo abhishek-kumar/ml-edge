@@ -1,47 +1,27 @@
 from google.cloud import vision
 from PIL import Image, ImageDraw
 import io
-from typing import List, Dict, Tuple
-from pydantic import BaseModel
+from typing import List, Dict
 
-class Vertex(BaseModel):
+def draw_boxes(content: io.BytesIO, detected_faces) -> io.BytesIO:
     """
-    A Vertex is a tuple of x and y coordinates
-    """
-    x: int
-    y: int
+    The `Image.open` function from the Pillow library expects a file path or a
+    file-like object as the argument; not the content of the file itself.
 
-class Rectangle(BaseModel):
-    """
-    A Rectangle is a tuple of tuples
-    """
-    vertices: Tuple[Vertex, Vertex]
-
-class BoundingPoly(BaseModel):
-    """
-    A bounding poly is a list of rectangles
-    """
-    vertices: List[Rectangle]
-
-def draw_boxes(image: io.BytesIO, detected_faces) -> io.BytesIO:
-    """
+    You can use `io.BytesIO` to create a binary stream from the image 
+    content and open the image.
+    
     Draw bounding boxes around the faces detected in the image,
     and return a version of the image with the bounding boxes
     """
-    image = Image.open(image)
+    image = Image.open(content)
     draw = ImageDraw.Draw(image)
 
     for detected_face in detected_faces:
-        vertices  = [(vertex.get("x"), vertex.get("y")) for vertex in detected_face.get("bounding_poly").get("vertices")]
-        # top_left = (vertices[0].get("x"), vertices[0].get("y"))
-        # bottom_right = (vertices[2].get("x"), vertices[2].get("y"))
-        draw.rectangle((top_left, bottom_right), outline="red")
+        vertices = [(vertex.x, vertex.y) for vertex in detected_face.bounding_poly.vertices]
+        draw.line(vertices + [vertices[0]], width=5, fill='red')
 
-    # Save the image with bounding boxes
-    image_bytes = io.BytesIO()
-    image.save(image_bytes, format='JPEG')
-
-    return image_bytes
+    return image
 
 def get_gcp_bounding_boxes(base64_image, gcp_vision_client):
     # Create an image object from the base64 string
@@ -60,7 +40,6 @@ def extract_vertices(detected_faces: List[Dict[str, Dict[str, List[Dict[str, int
         ]
 
     return vertices
-
 
 def print_face_diagnostics(detected_faces):
     """
