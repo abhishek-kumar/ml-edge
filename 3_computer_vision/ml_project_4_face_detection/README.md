@@ -90,11 +90,25 @@ make app
 * then click on the Sandwhich to the right of the service user on the service user page
 * click on Manage Keys
 * Click Add Key -> Create new key -> JSON
- 
+
 Then, you need to enable your cloud vision API:
+
 * type in Cloud Vision API in the search bar
 * click on the Cloud Vision API
 * click Enable
 
-
 Whenever you make commands that depend on the Cloud Vision API, you have to set the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the path of the JSON file you downloaded.p
+
+### Face Recongition
+
+First, download the celebrity images dataset from [this Google Drive link](https://drive.google.com/file/d/15SK4cTePa20TYOZmx8qNqXI-v4GIozIq/view?usp=drive_link).
+
+Move that zip file into the `backend` directory.
+
+Then, unzip that archive:
+
+```bash
+unzip celebrity-18.zip
+```
+
+This will create a folder called `Celebrity Faces Dataset` on your machine.
