@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from base64 import b64encode, b64decode
 from service_layer import detect_faces
 from google.cloud import vision
+from loguru import logger
+import io
 
 app = FastAPI()
 client = vision.ImageAnnotatorClient()
@@ -25,9 +27,8 @@ async def post_detect_faces(file: UploadFile):
     """
     An endpoint to send uploaded images to GCP to detect faces on an image
     """
-    contents = await file.read()
-    img_base64 = b64encode(contents)
-    output_image_bytes = await detect_faces(img_base64, client)
-    return b64decode(output_image_bytes.getvalue()).decode("utf-8")
+    contents = io.BytesIO(await file.read())
+    output_image_bytes = await detect_faces(contents, client)
+    return { "image": b64encode(output_image_bytes).decode() }
 
 
