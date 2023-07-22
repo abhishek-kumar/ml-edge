@@ -144,3 +144,7 @@ aws_secret_access_key=<your secret key>
 
 Then, your backend should be able to access the rekognition celebrity detection API.
 It looks for a profile called `rekognition` in your `~/.aws/credentials` file.
+
+## Do Celebrity Facial Recognition with Resnet 50
+
+Go into notebook 7, and follow the instructions in that notebook to fine tune the resnet 50 model on the celebrities dataset you've downloaded in the zip file.
