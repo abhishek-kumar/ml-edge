@@ -5,17 +5,6 @@ from botocore.session import Session
 from loguru import logger
 import pytest
 
-# @pytest.fixture
-# def test_image():
-#     # PATH_TO_TEST_IMAGE = pathlib.Path("Celebrity Faces Dataset/Brad Pitt/001_c04300ef.jpg")
-#     PATH_TO_TEST_IMAGE = pathlib.Path(".test_assets/test_image.jpg")
-#     assert PATH_TO_TEST_IMAGE.exists(), f"Could not find {PATH_TO_TEST_IMAGE}"
-    
-#     with open(PATH_TO_TEST_IMAGE, "rb") as image_file:
-#         content = image_file.read()
-
-#     return content
-
 
 @pytest.mark.parametrize(
         "test_image_path,expected_output", 
