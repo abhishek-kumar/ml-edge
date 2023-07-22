@@ -148,3 +148,13 @@ It looks for a profile called `rekognition` in your `~/.aws/credentials` file.
 ## Do Celebrity Facial Recognition with Resnet 50
 
 Go into notebook 7, and follow the instructions in that notebook to fine tune the resnet 50 model on the celebrities dataset you've downloaded in the zip file.
+
+You can find the instructions for importing models into VertexAI [here](https://cloud.google.com/vertex-ai/docs/model-registry/import-model).
+
+You can find the instructions when you're using the pre-built TensorFlow containers [here](https://cloud.google.com/vertex-ai/docs/training/exporting-model-artifacts#tensorflow).
+
+Basically, if you're using Keras, you run `model.save("path/to/savedModel/directory")`
+
+At the end of that notebook, you should have a folder called `model` inside the `backend` directory. This `model` directory **is** the `SavedModel` artifact that you upload to TensorFlow.
+
+Then you have to store your that `model` SavedModel directory into a Google Cloud Storage bucket, where Vertex AI can pick it up from.
