@@ -9,12 +9,15 @@ python = ">=3.11,<3.12"
 fastapi = "*"
 uvicorn = "^0.23.1"
 google-cloud-vision = "^3.4.4"
+tensorflow-macos = "*"
+tensorflow-metal = "*"
 python-multipart = "^0.0.6"
 loguru = "^0.7.0"
 pillow = "^10.0.0"
 pydantic = "*"
 opencv-python = "*"
 boto3 = "^1.28.9"
+ipykernel = "^6.24.0"
 
 
 [tool.poetry.group.dev.dependencies]
