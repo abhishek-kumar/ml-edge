@@ -157,4 +157,30 @@ Basically, if you're using Keras, you run `model.save("path/to/savedModel/direct
 
 At the end of that notebook, you should have a folder called `model` inside the `backend` directory. This `model` directory **is** the `SavedModel` artifact that you upload to TensorFlow.
 
-Then you have to store your that `model` SavedModel directory into a Google Cloud Storage bucket, where Vertex AI can pick it up from.
+Then you have to upload that `model` SavedModel directory into a Google Cloud Storage bucket, where Vertex AI can pick it up from.
+
+### Upload model to Vertex AI
+
+First, you need to create a cloud storage bucket location for your model:
+
+1. go to Cloud Storage in the GCP console
+2. create a bucket (with a unique name)
+3. upload the `saved_model.pb` file from the `backend/model` directory
+
+Now we need to import this model into the Vertex AI model registry:
+
+1. go to Vertex AI in the GCP console
+2. click on `Model Registry` in the left hand menu
+3. click on `import`:
+    * Import as new model
+    * Name - set a name
+    * Region - set the region to be same as your cloud storage bucket
+    * Import model artifacts into a new pre-built container
+    * Model framework - TensorFlow
+    * Model framework version - 2.12
+    * Accelerator type - None
+    * Path to model artifact (this has to be the path to the directory containing your `saved_model.pb` file in your cloud storage bucket) - `gs://<bucket-name>`
+
+Then you need to deploy this model that's in your model registry to a model endpoint:
+
+* 
