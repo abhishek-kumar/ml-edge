@@ -18,15 +18,14 @@ pydantic = "*"
 opencv-python = "*"
 boto3 = "^1.28.9"
 ipykernel = "^6.24.0"
+google-cloud-aiplatform = "^1.28.1"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 
 [tool.pytest.ini_options]
-log_cli = true
-log_level = "INFO"
-capture = "no"
+addopts = "--capture=no"
 filterwarnings = [
     # transform all other warnings into errors
     "error",
