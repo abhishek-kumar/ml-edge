@@ -25,6 +25,12 @@ google-cloud-aiplatform = "^1.28.1"
 pytest = "^7.4.0"
 mypy = "^1.4.1"
 isort = "^5.12.0"
+types-pillow = "^10.0.0.2"
+black = "*"
+flake8 = "*"
+pre-commit = "*"
+pytest-cov = "*"
+interrogate = "*"
 
 [tool.pytest.ini_options]
 addopts = "--capture=no"
