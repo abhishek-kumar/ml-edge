@@ -41,7 +41,7 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 
-# or 
+# or
 make run
 ```
 
@@ -183,4 +183,14 @@ Now we need to import this model into the Vertex AI model registry:
 
 Then you need to deploy this model that's in your model registry to a model endpoint:
 
-* 
+* Click on the model in your model registry
+* Click on Deploy & Test:
+  * Endpoint name: celebrity-recognition
+
+
+Finally, you need to add the IAM permission to the service account to make a call to the `aiplatform.endpoints.predict` API.
+
+* go into IAM
+* go to your service user, and click on the pencil all the way to the right of the table
+* add another role:
+  * add AI Platform Admin
