@@ -113,8 +113,7 @@ unzip celebrity-18.zip
 
 This will create a folder called `Celebrity Faces Dataset` on your machine.
 
-
-We'll be using AWS Rekognition for celebrity facial recognition, as they provide this out of the box, and the SDK is very easy to use.
+At first, we'll use AWS Rekognition to perform celebrity facial recognition. This will allow us to set up the API calls and design patterns that will allow us to switch where we're getting our celebrity recognition predictions from with ease. Next, we'll move onto fine tuning our own celebrity recognition model and deploying it to VertexAI.
 
 First, you need to create a service user on AWS:
 
