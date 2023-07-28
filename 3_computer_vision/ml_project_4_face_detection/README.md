@@ -186,10 +186,11 @@ Then you need to deploy this model that's in your model registry to a model endp
 * Click on Deploy & Test:
   * Endpoint name: celebrity-recognition
 
-
-Finally, you need to add the IAM permission to the service account to make a call to the `aiplatform.endpoints.predict` API.
+Next, you need to add the IAM permission to the service account to make a call to the `aiplatform.endpoints.predict` API.
 
 * go into IAM
 * go to your service user, and click on the pencil all the way to the right of the table
 * add another role:
   * add AI Platform Admin
+
+Then, you need to go into the `recognition.py` file, and enter your endpoint name in the variable `ENDPOINT_NAME`.

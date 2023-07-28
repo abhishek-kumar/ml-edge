@@ -29,6 +29,10 @@ assert PATH_TO_CELEBRITY_MAPPING.exists(), f"Could not find {PATH_TO_CELEBRITY_M
 with open(PATH_TO_CELEBRITY_MAPPING, "r") as f:
     loaded_idx_to_celebrity_name = json.load(f)
 
+VERTEXAI_ENDPOINT_NAME = (
+    "projects/820240006900/locations/us-east4/endpoints/5089357849998393344"
+)
+
 
 def detect_celebrity(image: bytes, rekognition_client) -> Optional[str]:
     response = rekognition_client.recognize_celebrities(Image={"Bytes": image})
@@ -113,9 +117,7 @@ class RequestModel(BaseModel):
     instances: List[Instance]
 
 
-def vertex_ai_endpoint_predict_sample(
-    project: str, location: str, instances, endpoint_id: str = "2627296228710285312"
-) -> int:
+def vertex_ai_endpoint_predict_sample(project: str, location: str, instances) -> int:
     """
     Taken from https://cloud.google.com/vertex-ai/docs/predictions/get-online-predictions#predict-request
 
@@ -125,9 +127,7 @@ def vertex_ai_endpoint_predict_sample(
     aiplatform.init(project=project, location=location)
 
     # endpoint = aiplatform.Endpoint(endpoint_name=endpoint_id)
-    endpoint = aiplatform.Endpoint(
-        endpoint_name="projects/820240006900/locations/us-east4/endpoints/5089357849998393344"
-    )
+    endpoint = aiplatform.Endpoint(endpoint_name=VERTEXAI_ENDPOINT_NAME)
 
     logger.info(f"Input instances: {instances}")
     prediction_probabilities = endpoint.predict(instances=instances).predictions
