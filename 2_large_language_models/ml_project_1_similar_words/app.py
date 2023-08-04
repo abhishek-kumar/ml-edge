@@ -53,7 +53,6 @@ app.layout = html.Div(
             multi=True,
             placeholder="Words to delete...",
         ),
-        html.Button("Delete Word(s)", id="button-delete", n_clicks=0),
     ]
 )
 
