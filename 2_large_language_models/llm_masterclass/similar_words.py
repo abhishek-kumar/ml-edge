@@ -1,12 +1,26 @@
 # Python Standard Library Imports
+import time as base_time
 from typing import List
 
 # Third Party Imports
 import numpy as np
 from gensim.models.keyedvectors import KeyedVectors as GensimKeyedVectors
+from loguru import logger
 from sklearn.manifold import TSNE
 
 
+def time(func):
+    def wrapped(*args, **kwargs):
+        start = base_time.perf_counter()
+        result = func(*args, **kwargs)
+        end = base_time.perf_counter()
+        logger.info(f"Ran {func.__name__} in {end - start} seconds.")
+        return result
+
+    return wrapped
+
+
+@time
 def get_word_clusters(words, word2vec_model: GensimKeyedVectors, topn=30):
     """
     Given a list of words and a word2vec model, return a list of lists of similar words and a list of lists of similar word embeddings.
@@ -29,6 +43,7 @@ def get_word_clusters(words, word2vec_model: GensimKeyedVectors, topn=30):
     return word_clusters, np.array(word_cluster_embeddings)
 
 
+@time
 def create_tsne_model(
     perplexity=15, n_components=2, init="pca", n_iter=3500, random_state=32, n_jobs=-1
 ):
@@ -42,6 +57,7 @@ def create_tsne_model(
     )
 
 
+@time
 def get_reshaped_tsne_embeddings(word_cluster_embeddings_np, tsne_model):
     """
     Given a list of lists of word embeddings, return a list of lists of t-SNE embeddings.
