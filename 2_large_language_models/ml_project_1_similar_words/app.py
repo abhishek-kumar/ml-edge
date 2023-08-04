@@ -1,6 +1,3 @@
-# Python Standard Library Imports
-import time
-
 # Third Party Imports
 import dash
 import matplotlib.cm as cm
@@ -12,7 +9,7 @@ from gensim.models.keyedvectors import KeyedVectors as GensimKeyedVectors
 from loguru import logger
 
 # llm_masterclass Imports
-from llm_masterclass import google_news
+from llm_masterclass import google_news, plotting_utils
 from llm_masterclass import similar_words as masterclass_similar_words
 
 words_to_start = [
@@ -83,20 +80,11 @@ def add_word(n_clicks, input_word, dropdown_options):
 
 @app.callback(
     Output("word-scatter", "figure"),
-    Input("button-add", "n_clicks"),
-    Input("button-delete", "n_clicks"),
     Input("dropdown-word", "value"),
 )
-def update_graph(n_clicks_add, n_clicks_delete, words):
+def update_graph(words):
     logger.info(f"Plotting for words: {words}")
-    # Get the colors in rgba format (values between 0 and 1)
-    colors = cm.rainbow(np.linspace(0, 1, len(words)))
-
-    # Multiply by 255 to get values between 0 and 255, then convert to integers
-    colors = (colors * 255).astype(int)
-
-    # Convert the colors to 'rgba' strings
-    colors = ["rgba({},{},{},{})".format(*color) for color in colors]
+    colors = plotting_utils.get_colors(words)
     (
         word_clusters,
         word_cluster_embeddings_np,
@@ -104,39 +92,9 @@ def update_graph(n_clicks_add, n_clicks_delete, words):
     reshaped_t_sne_embeddings = masterclass_similar_words.get_reshaped_tsne_embeddings(
         word_cluster_embeddings_np, tsne_model
     )
-    data = []
-    annotations = []
-
-    for word, embeddings, similar_words, color in zip(
-        words, reshaped_t_sne_embeddings, word_clusters, colors
-    ):
-        x = embeddings[:, 0]
-        y = embeddings[:, 1]
-        scatter = go.Scatter(
-            x=x,
-            y=y,
-            mode="markers",
-            marker=dict(
-                color=color, size=10, line=dict(color="Black", width=2), opacity=0.7
-            ),
-            text=f"{word}",
-            hoverinfo="text",
-            name=word,
-        )
-        data.append(scatter)
-
-        for i, similar_word in enumerate(similar_words):
-            annotations.append(
-                dict(
-                    x=x[i],
-                    y=y[i],
-                    xref="x",
-                    yref="y",
-                    text=similar_word,
-                    showarrow=False,
-                    font=dict(size=12, color="black"),
-                )
-            )
+    data, annotations = plotting_utils.generate_plot_data_and_annotations(
+        words, word_clusters, reshaped_t_sne_embeddings, colors
+    )
 
     layout = go.Layout(
         title="Similar Words from Google News",
