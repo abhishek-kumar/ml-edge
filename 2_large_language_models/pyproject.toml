@@ -57,7 +57,7 @@ known_first_party = ["llm_masterclass"]
         # note the use of single quote below to denote "raw" strings in TOML
         'ignore:function ham\(\) is deprecated:DeprecationWarning',
         "ignore::DeprecationWarning",
-]
+    ]
 
 [build-system]
 requires = ["poetry-core"]
