@@ -1,7 +1,6 @@
 [tool.poetry]
 name = "llm_masterclass"
-# the first alpha pre-release of version 0.1.0
-version = "0.1.0-alpha.1 "
+version = "0.1.0"
 description = "Repository for LLMs portion of AI masterclass"
 authors = ["Joseph Corrado <josephcorrado7@gmail.com>"]
 readme = "README.md"
@@ -47,20 +46,18 @@ profile = "black"
 import_heading_stdlib = "Python Standard Library Imports"
 import_heading_thirdparty = "Third Party Imports"
 import_heading_firstparty = "llm_masterclass Imports"
-# src_paths = ["<path-to-src-code>"]
 known_first_party = ["llm_masterclass"]
-# known_third_party = ["<any 3rd party packages with potential name collisions>"]
 
- [tool.pytest.ini_options]
- filterwarnings = [
-     # transform all other warnings into errors
-     "error",
-     # ignore UserWarnings
-     "ignore::UserWarning",
-     # note the use of single quote below to denote "raw" strings in TOML
-     'ignore:function ham\(\) is deprecated:DeprecationWarning',
-     "ignore::DeprecationWarning",
- ]
+[tool.pytest.ini_options]
+    filterwarnings = [
+        # transform all other warnings into errors
+        "error",
+        # ignore UserWarnings
+        "ignore::UserWarning",
+        # note the use of single quote below to denote "raw" strings in TOML
+        'ignore:function ham\(\) is deprecated:DeprecationWarning',
+        "ignore::DeprecationWarning",
+]
 
 [build-system]
 requires = ["poetry-core"]
