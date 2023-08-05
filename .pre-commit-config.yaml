@@ -36,17 +36,3 @@ repos:
   hooks:
     - id: circleci_validate
       description: Validate `.circleci/config.yml` file
-# - repo: https://github.com/sourcery-ai/sourcery
-#   rev: v1.2.0
-#   hooks:
-#     - id: sourcery
-#       # The best way to use Sourcery in a pre-commit hook:
-#       # * review only changed lines:
-#       # * omit the summary
-#       args: [--diff=git diff HEAD, --no-summary]
-#       # to automatically apply the changes
-#       # args: [--diff=git diff HEAD, --fix, --no-summary]
-#       name: sourcery
-#       types: [python]
-#       stages: [push]
-#       description: Run sourcery to suggest refactorings for Python code, using Google style guide
