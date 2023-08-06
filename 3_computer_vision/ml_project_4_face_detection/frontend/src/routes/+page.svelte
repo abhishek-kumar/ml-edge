@@ -9,7 +9,7 @@
     function delay(ms: number) {
         return new Promise( resolve => setTimeout(resolve, ms) );
     }
-  
+
     async function onFileChange(event: Event) {
       const files = (event.target as HTMLInputElement).files;
       if (files && files.length > 0) {
@@ -46,7 +46,7 @@
   </script>
 
 <!-- END TypeScript -->
-  
+
 <style>
     .single-image-preview {
         max-width: 500px;
@@ -128,7 +128,7 @@
 
 <!-- HTML Code -->
 <h1>iRecognize</h1>
-  
+
 <div class="center-div">
 
     <input class="file-input" type="file" accept="image/*" on:change={onFileChange} />

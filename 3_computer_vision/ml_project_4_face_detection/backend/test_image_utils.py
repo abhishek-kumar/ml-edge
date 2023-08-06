@@ -1,15 +1,14 @@
 import io
-from image_utils import (
-    draw_boxes, 
-    extract_vertices,
-    get_gcp_bounding_boxes
-)
-import pathlib
 import os
+import pathlib
+from base64 import b64decode, b64encode
+
+import pytest
 from google.cloud import vision
 from loguru import logger
-from base64 import b64encode, b64decode
-import pytest
+
+from image_utils import draw_boxes, extract_vertices, get_gcp_bounding_boxes
+
 
 @pytest.fixture
 def example_face_annotations():
@@ -17,7 +16,9 @@ def example_face_annotations():
     assert PATH_TO_TEST_IMAGE.exists(), f"Could not find {PATH_TO_TEST_IMAGE}"
 
     PATH_TO_SERVICE_USER_CREDENTIALS = pathlib.Path("cloud-vision-credentials.json")
-    assert PATH_TO_SERVICE_USER_CREDENTIALS.exists(), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
+    assert (
+        PATH_TO_SERVICE_USER_CREDENTIALS.exists()
+    ), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(PATH_TO_SERVICE_USER_CREDENTIALS)
     client = vision.ImageAnnotatorClient()
@@ -29,6 +30,7 @@ def example_face_annotations():
 
     response = client.face_detection(image=image)
     return response.face_annotations
+
 
 def test_draw_boxes(example_face_annotations):
     # Arrange
@@ -44,21 +46,7 @@ def test_draw_boxes(example_face_annotations):
 
 def test_extract_vertices():
     detected_faces = [
-        {
-            "bounding_poly": 
-            {
-                "vertices": [
-                    {
-                        "x": 10,
-                        "y": 40
-                    },
-                    {
-                        "x": 40,
-                        "y": 10
-                    }
-                ]
-            }
-        },
+        {"bounding_poly": {"vertices": [{"x": 10, "y": 40}, {"x": 40, "y": 10}]}},
     ]
     vertices = extract_vertices(detected_faces)
 
@@ -70,7 +58,9 @@ def test_get_gcp_bounding_boxes():
     assert PATH_TO_TEST_IMAGE.exists(), f"Could not find {PATH_TO_TEST_IMAGE}"
 
     PATH_TO_SERVICE_USER_CREDENTIALS = pathlib.Path("cloud-vision-credentials.json")
-    assert PATH_TO_SERVICE_USER_CREDENTIALS.exists(), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
+    assert (
+        PATH_TO_SERVICE_USER_CREDENTIALS.exists()
+    ), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(PATH_TO_SERVICE_USER_CREDENTIALS)
     client = vision.ImageAnnotatorClient()
@@ -83,5 +73,3 @@ def test_get_gcp_bounding_boxes():
     response = client.face_detection(image=image)
     faces = response.face_annotations
     logger.info(f"Face annotations:\n{faces}")
-
-

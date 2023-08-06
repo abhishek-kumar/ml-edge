@@ -1,8 +1,10 @@
 # from recognition import zero_shot, generate_image_to_id_mapping
+# Python Standard Library Imports
 import json
 import pathlib
 from typing import Optional
 
+# Third Party Imports
 import numpy as np
 import PIL
 import pytest

@@ -1,9 +1,12 @@
+# Python Standard Library Imports
+import json
+
+# Third Party Imports
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from google.cloud import bigquery
 from loguru import logger
 from pydantic import BaseModel
-from google.cloud import bigquery
-import json
 
 app = FastAPI()
 app.add_middleware(
@@ -14,12 +17,18 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+
 class Review(BaseModel):
     review: str
 
+
 @app.get("/api/review")
 def help():
-    return {"message": "Send a POST request to /api/review with your review to get sentiment analysis"}
+    return {
+        "message": "Send a POST request to /api/review with your review to get sentiment analysis"
+    }
+
+
 @app.post("/api/review", status_code=200)
 def review(review: Review):
     logger.info(f"Retrieved review: {review.review}")
@@ -45,26 +54,23 @@ def review(review: Review):
 
     logger.debug(f"Query:\n{query}")
 
-
     try:
         query_job = client.query(query)  # Make an API request.
         results = query_job.result()  # Wait for the job to complete.
 
         df = results.to_dataframe().iloc[0]
 
-        safety_attributes = json.loads(df.loc['safety_attributes'])
+        safety_attributes = json.loads(df.loc["safety_attributes"])
 
         logger.info(f"Results:\n{df}")
 
         logger.info(safety_attributes)
-        logger.info(safety_attributes.get('blocked'))
+        logger.info(safety_attributes.get("blocked"))
 
-
-        if safety_attributes.get('blocked') == True:
+        if safety_attributes.get("blocked") == True:
             result = "negative"
         else:
-            result = df['generated_text']
-
+            result = df["generated_text"]
 
         logger.info(f"Results:\n{result}")
 
@@ -73,7 +79,11 @@ def review(review: Review):
         # We assume here that the query will return a single row of results.
         # If your query could return multiple rows, consider using results.to_dataframe()
 
-        return {"message": "Review submitted successfully", "success": True, "result": result}
+        return {
+            "message": "Review submitted successfully",
+            "success": True,
+            "result": result,
+        }
 
     except Exception as e:
         logger.exception(e)

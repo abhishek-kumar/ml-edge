@@ -6,7 +6,7 @@ The purpose of this repository is to provide a walk through common examples and 
 
 ### Mac M2
 
-First, make sure the ARM64 installation of Anaconda is installed on your machine. 
+First, make sure the ARM64 installation of Anaconda is installed on your machine.
 
 Then, create an anaconda virtual environment that only consists of the following:
 
@@ -30,5 +30,3 @@ poetry env use $(which python)
 # install all dependencies
 poetry install
 ```
-
-

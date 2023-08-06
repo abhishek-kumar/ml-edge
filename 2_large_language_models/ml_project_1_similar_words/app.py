@@ -6,11 +6,11 @@ import plotly.graph_objs as go
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
 from gensim.models.keyedvectors import KeyedVectors as GensimKeyedVectors
-from loguru import logger
 
 # llm_masterclass Imports
 from llm_masterclass import google_news, plotting_utils
 from llm_masterclass import similar_words as masterclass_similar_words
+from loguru import logger
 
 words_to_start = [
     "Paris",

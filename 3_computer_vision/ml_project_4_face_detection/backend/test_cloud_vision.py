@@ -1,17 +1,23 @@
-from loguru import logger
-import pathlib
-from google.cloud import vision
-from PIL import Image, ImageDraw
+# Python Standard Library Imports
 import os
+import pathlib
+
+# Third Party Imports
+from google.cloud import vision
+from loguru import logger
+from PIL import Image, ImageDraw
 
 PATH_TO_TEST_IMAGE = pathlib.Path(".test_assets/test_image.jpg")
 assert PATH_TO_TEST_IMAGE.exists(), f"Could not find {PATH_TO_TEST_IMAGE}"
 PATH_TO_OUTPUT_IMAGE = pathlib.Path(".test_assets/output_image.jpg")
 
 PATH_TO_SERVICE_USER_CREDENTIALS = pathlib.Path("cloud-vision-credentials.json")
-assert PATH_TO_SERVICE_USER_CREDENTIALS.exists(), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
+assert (
+    PATH_TO_SERVICE_USER_CREDENTIALS.exists()
+), f"Could not find {PATH_TO_SERVICE_USER_CREDENTIALS}"
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(PATH_TO_SERVICE_USER_CREDENTIALS)
+
 
 def test_cloud_vision_works():
     client = vision.ImageAnnotatorClient()
@@ -48,7 +54,7 @@ def test_cloud_vision_works():
             f"({vertex.x},{vertex.y})" for vertex in face.bounding_poly.vertices
         ]
         vertices = [(vertex.x, vertex.y) for vertex in face.bounding_poly.vertices]
-        draw.line(vertices + [vertices[0]], width=5, fill='red')
+        draw.line(vertices + [vertices[0]], width=5, fill="red")
 
         logger.info(f"face bounds: {','.join(vertices_str)}")
 

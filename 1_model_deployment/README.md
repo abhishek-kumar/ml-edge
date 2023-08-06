@@ -61,7 +61,7 @@ docker images
 
 And you should see a docker image there in your images, with the name `prediction_service`.
 
-Then, we need to run a docker container process based on that image. 
+Then, we need to run a docker container process based on that image.
 
 To do that, we also have a Makefile endpoint we can use:
 
@@ -71,7 +71,7 @@ make prediction_service_container
 
 This runs a Docker container process with the name `prediction_service`.
 
-This container will expose the port 8000, so that you should access the same endpoint as we did before, when we ran the FastAPI server directly. 
+This container will expose the port 8000, so that you should access the same endpoint as we did before, when we ran the FastAPI server directly.
 
 You can verify that your docker container is running by running:
 
@@ -79,7 +79,7 @@ You can verify that your docker container is running by running:
 docker ps -a
 ```
 
-You should see a container by the name of `prediction_service`. 
+You should see a container by the name of `prediction_service`.
 
 Then, when you want to stop the container, you can run:
 
